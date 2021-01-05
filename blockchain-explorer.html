@@ -3,7 +3,7 @@
     <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/milligram/1.2.3/milligram.min.css">
   </head>
   <body class="container" style="padding-top: 3%;">
-    <h2><a href="index.html">ethjs</a></h2>
+    <h2><a href="index.html">vapjs</a></h2>
     <h4>Blockchain Explorer</h4>
 
     <hr />
@@ -27,7 +27,7 @@
       </div>
       <div class="column">
         <label>Network</label>
-        <p id="currentNetwork">Ethereum Mainnet</p>
+        <p id="currentNetwork">Vapory Mainnet</p>
       </div>
     </div>
 
@@ -79,11 +79,11 @@
         TxHash:	<span id="txHash"></span><br />
         From:	<span id="txFrom"></span><br />
         To:	<span id="txTo"></span><br />
-        Value: <span id="txValue"></span> Ether<br />
+        Value: <span id="txValue"></span> Vapor<br />
         Gas: <span id="txGas"></span><br />
-        Gas Price: <span id="txGasPrice"></span> Ether<br />
+        Gas Price: <span id="txGasPrice"></span> Vapor<br />
         Gas Used By Transaction: <span id="txGasUsed"></span><br />
-        Actual Tx Cost/Fee:	<span id="txCost"></span> Ether<br />
+        Actual Tx Cost/Fee:	<span id="txCost"></span> Vapor<br />
         Cumulative Gas Used:<span id="txCumulativeGasUsed"></span><br />
         Nonce: <span id="txNonce"></span><br />
       </div>
@@ -91,27 +91,27 @@
 
     <div id="response" style="padding: 20px; border: 1px solid #F1F1F1;"></div>
 
-    <script type="text/javascript" src="ethjs.js"></script>
+    <script type="text/javascript" src="vapjs.js"></script>
     <script type="text/javascript">
-      var eth = new Eth(new Eth.HttpProvider('https://mainnet.infura.io/'));
+      var vap = new Vap(new Vap.HttpProvider('https://mainnet.infura.io/'));
       var el = function(id){ return document.querySelector(id); };
 
       /*
       // uncomment to enable MetaMask support:
       if (typeof window.web3 !== 'undefined' && typeof window.web3.currentProvider !== 'undefined') {
-        eth.setProvider(window.web3.currentProvider);
+        vap.setProvider(window.web3.currentProvider);
       } else {
-        eth.setProvider(provider); // set to TestRPC if not available
+        vap.setProvider(provider); // set to TestRPC if not available
       }
       */
 
       function updateLastBlock() {
-        eth.getBlockByNumber('latest', false)
+        vap.getBlockByNumber('latest', false)
         .then(function(block){
           el('#lastBlockNumber').innerHTML = block.number.toString(10);
           el('#lastBlockHash').innerHTML = block.hash.substr(0, 12) + '..';
           el('#lastBlockTransactions').innerHTML = block.transactions.length;
-          el('#lastBlockCreated').innerHTML = new Eth.BN((new Date()).getTime() / 1000).sub(block.timestamp).toString(10);
+          el('#lastBlockCreated').innerHTML = new Vap.BN((new Date()).getTime() / 1000).sub(block.timestamp).toString(10);
         })
         .catch(function(blockError){
           el('#response').innerHTML = 'Hmm.. there was an error: ' + String(blockError);
@@ -126,15 +126,15 @@
         el('#blockSearch').style.display = 'block';
         el('#response').innerHTML = 'Search for block...';
 
-        if(Eth.isHexString(searchValue)) {
+        if(Vap.isHexString(searchValue)) {
           searchMethod = 'getBlockByHash'
         }
 
-        eth[searchMethod](searchValue, false)
+        vap[searchMethod](searchValue, false)
         .then(function(searchBlock){
           el('#response').style.display = 'none';
 
-          el('#searchBlockTimeAgo').innerHTML = new Date(searchBlock.timestamp.mul(new Eth.BN(1000)).toNumber(10)).toISOString();
+          el('#searchBlockTimeAgo').innerHTML = new Date(searchBlock.timestamp.mul(new Vap.BN(1000)).toNumber(10)).toISOString();
           el('#searchBlockTransactions').innerHTML = searchBlock.transactions.length;
           el('#searchBlockHash').innerHTML = searchBlock.hash;
           el('#searchBlockParentHash').innerHTML = searchBlock.parentHash;
@@ -156,9 +156,9 @@
         el('#blockSearch').style.display = 'none';
         el('#response').innerHTML = 'Search for transaction...';
 
-        eth.getTransactionByHash(el('#transactionSearchValue').value)
+        vap.getTransactionByHash(el('#transactionSearchValue').value)
         .then(function(transaction){
-          eth.getTransactionReceipt(transaction.hash)
+          vap.getTransactionReceipt(transaction.hash)
           .then(function(receipt){
             el('#transactionSearch').style.display = 'block';
             el('#response').style.display = 'none';
@@ -166,11 +166,11 @@
             el('#txHash').innerHTML = transaction.hash;
             el('#txFrom').innerHTML = transaction.from;
             el('#txTo').innerHTML = transaction.to;
-            el('#txValue').innerHTML = Eth.fromWei(transaction.value, 'ether');
+            el('#txValue').innerHTML = Vap.fromWei(transaction.value, 'vapor');
             el('#txGas').innerHTML = transaction.gas.toString(10);
-            el('#txGasPrice').innerHTML = Eth.fromWei(transaction.gasPrice, 'ether');
-            el('#txGasUsed').innerHTML = Eth.fromWei(receipt.gasUsed, 'ether');
-            el('#txCost').innerHTML = Eth.fromWei(receipt.cumulativeGasUsed, 'ether');
+            el('#txGasPrice').innerHTML = Vap.fromWei(transaction.gasPrice, 'vapor');
+            el('#txGasUsed').innerHTML = Vap.fromWei(receipt.gasUsed, 'vapor');
+            el('#txCost').innerHTML = Vap.fromWei(receipt.cumulativeGasUsed, 'vapor');
             el('#txCumulativeGasUsed').innerHTML = receipt.cumulativeGasUsed.toString(10);
             el('#txNonce').innerHTML = transaction.nonce.toString(10);
           });

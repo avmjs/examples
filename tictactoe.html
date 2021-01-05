@@ -3,7 +3,7 @@
     <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/milligram/1.2.3/milligram.min.css">
   </head>
   <body class="container" style="padding-top: 3%;">
-    <h2><a href="index.html">ethjs</a></h2>
+    <h2><a href="index.html">vapjs</a></h2>
     <h4>TicTacToe</h4>
 
     <hr />
@@ -65,10 +65,10 @@
 
     <div id="response"></div>
 
-    <script type="text/javascript" src="ethereumjs-testrpc.js"></script>
-    <script type="text/javascript" src="ethjs.js"></script>
+    <script type="text/javascript" src="vaporyjs-testrpc.js"></script>
+    <script type="text/javascript" src="vapjs.js"></script>
     <script type="text/javascript">
-      var eth = new Eth(TestRPC.provider());
+      var vap = new Vap(TestRPC.provider());
       var el = function(id){ return document.querySelector(id); };
 
       var TicTacToeABI = JSON.parse('[{\"constant\":false,\"inputs\":[{\"name\":\"_row\",\"type\":\"uint256\"},{\"name\":\"_column\",\"type\":\"uint256\"}],\"name\":\"move\",\"outputs\":[],\"payable\":false,\"type\":\"function\"},{\"constant\":true,\"inputs\":[{\"name\":\"\",\"type\":\"uint256\"}],\"name\":\"addressOf\",\"outputs\":[{\"name\":\"\",\"type\":\"address\"}],\"payable\":false,\"type\":\"function\"},{\"constant\":false,\"inputs\":[],\"name\":\"payout\",\"outputs\":[],\"payable\":false,\"type\":\"function\"},{\"constant\":true,\"inputs\":[{\"name\":\"_player\",\"type\":\"uint256\"}],\"name\":\"hasWon\",\"outputs\":[{\"name\":\"gameWon\",\"type\":\"bool\"}],\"payable\":false,\"type\":\"function\"},{\"constant\":true,\"inputs\":[{\"name\":\"\",\"type\":\"uint256\"},{\"name\":\"\",\"type\":\"uint256\"}],\"name\":\"board\",\"outputs\":[{\"name\":\"\",\"type\":\"uint256\"}],\"payable\":false,\"type\":\"function\"},{\"constant\":true,\"inputs\":[],\"name\":\"turn\",\"outputs\":[{\"name\":\"\",\"type\":\"uint256\"}],\"payable\":false,\"type\":\"function\"},{\"constant\":true,\"inputs\":[{\"name\":\"\",\"type\":\"address\"}],\"name\":\"players\",\"outputs\":[{\"name\":\"\",\"type\":\"uint256\"}],\"payable\":false,\"type\":\"function\"},{\"inputs\":[{\"name\":\"_player1\",\"type\":\"address\"},{\"name\":\"_player2\",\"type\":\"address\"}],\"type\":\"constructor\"},{\"payable\":true,\"type\":\"fallback\"}]');
@@ -147,8 +147,8 @@
         render();
       }
 
-      eth.accounts(function(accountsError, accounts){
-        var TicTacToe = eth.contract(TicTacToeABI, TicTacToeBytecode, { from: accounts[0], gas: '3000000' })
+      vap.accounts(function(accountsError, accounts){
+        var TicTacToe = vap.contract(TicTacToeABI, TicTacToeBytecode, { from: accounts[0], gas: '3000000' })
 
         document.querySelectorAll('.addressSelector').forEach(function(selector){
           accounts.forEach(function(account){
@@ -168,7 +168,7 @@
             }
 
             var receiptInterval = setInterval(function(){
-              eth.getTransactionReceipt(txHash, function(receiptError, receipt){
+              vap.getTransactionReceipt(txHash, function(receiptError, receipt){
                 if (receipt) {
                   clearInterval(receiptInterval);
                   gameInstance = TicTacToe.at(receipt.contractAddress);

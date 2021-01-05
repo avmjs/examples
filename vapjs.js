@@ -3,11 +3,11 @@
 	if(typeof exports === 'object' && typeof module === 'object')
 		module.exports = factory();
 	else if(typeof define === 'function' && define.amd)
-		define("Eth", [], factory);
+		define("Vap", [], factory);
 	else if(typeof exports === 'object')
-		exports["Eth"] = factory();
+		exports["Vap"] = factory();
 	else
-		root["Eth"] = factory();
+		root["Vap"] = factory();
 })(this, function() {
 return /******/ (function(modules) { // webpackBootstrap
 /******/ 	// The module cache
@@ -5316,7 +5316,7 @@ function padToEven(value) {
   var a = value; // eslint-disable-line
 
   if (typeof a !== 'string') {
-    throw new Error('[ethjs-util] while padding to even, value must be string, is currently ' + typeof a + ', while padToEven.');
+    throw new Error('[vapjs-util] while padding to even, value must be string, is currently ' + typeof a + ', while padToEven.');
   }
 
   if (a.length % 2) {
@@ -5355,7 +5355,7 @@ function intToBuffer(i) {
  */
 function getBinarySize(str) {
   if (typeof str !== 'string') {
-    throw new Error('[ethjs-util] while getting binary size, method getBinarySize requires input \'str\' to be type String, got \'' + typeof str + '\'.');
+    throw new Error('[vapjs-util] while getting binary size, method getBinarySize requires input \'str\' to be type String, got \'' + typeof str + '\'.');
   }
 
   return Buffer.byteLength(str, 'utf8');
@@ -5372,10 +5372,10 @@ function getBinarySize(str) {
  */
 function arrayContainsArray(superset, subset, some) {
   if (Array.isArray(superset) !== true) {
-    throw new Error('[ethjs-util] method arrayContainsArray requires input \'superset\' to be an array got type \'' + typeof superset + '\'');
+    throw new Error('[vapjs-util] method arrayContainsArray requires input \'superset\' to be an array got type \'' + typeof superset + '\'');
   }
   if (Array.isArray(subset) !== true) {
-    throw new Error('[ethjs-util] method arrayContainsArray requires input \'subset\' to be an array got type \'' + typeof subset + '\'');
+    throw new Error('[vapjs-util] method arrayContainsArray requires input \'subset\' to be an array got type \'' + typeof subset + '\'');
   }
 
   return subset[Boolean(some) && 'some' || 'every'](function (value) {
@@ -5465,10 +5465,10 @@ function fromAscii(stringValue) {
  */
 function getKeys(params, key, allowEmpty) {
   if (!Array.isArray(params)) {
-    throw new Error('[ethjs-util] method getKeys expecting type Array as \'params\' input, got \'' + typeof params + '\'');
+    throw new Error('[vapjs-util] method getKeys expecting type Array as \'params\' input, got \'' + typeof params + '\'');
   }
   if (typeof key !== 'string') {
-    throw new Error('[ethjs-util] method getKeys expecting type String for input \'key\' got \'' + typeof key + '\'.');
+    throw new Error('[vapjs-util] method getKeys expecting type String for input \'key\' got \'' + typeof key + '\'.');
   }
 
   var result = []; // eslint-disable-line
@@ -6099,7 +6099,7 @@ function constructFilter(filterName, query) {
                 decodedChangeResults[logIndex].data = self.options.decoder(decodedChangeResults[logIndex].data);
               });
             } catch (decodingErrorMesage) {
-              decodingError = new Error('[ethjs-filter] while decoding filter change event data from RPC \'' + JSON.stringify(decodedChangeResults) + '\': ' + decodingErrorMesage);
+              decodingError = new Error('[vapjs-filter] while decoding filter change event data from RPC \'' + JSON.stringify(decodedChangeResults) + '\': ' + decodingErrorMesage);
             }
           }
 
@@ -6204,21 +6204,21 @@ function constructFilter(filterName, query) {
 }
 
 /**
- * EthFilter constructor, intakes a query, helps manage filter event polling
+ * VapFilter constructor, intakes a query, helps manage filter event polling
  *
- * @method EthFilter
- * @param {Object} query the `ethjs-query` or `eth-query` object
- * @returns {Object} output an EthFilter instance
+ * @method VapFilter
+ * @param {Object} query the `vapjs-query` or `vap-query` object
+ * @returns {Object} output an VapFilter instance
  * @throws error if new is not used
  */
 
-function EthFilter(query) {
+function VapFilter(query) {
   var self = this;
-  if (!(self instanceof EthFilter)) {
-    throw new Error('the EthFilter object must be instantiated with `new` flag.. (e.g. `const filters = new EthFilter(query);`)');
+  if (!(self instanceof VapFilter)) {
+    throw new Error('the VapFilter object must be instantiated with `new` flag.. (e.g. `const filters = new VapFilter(query);`)');
   }
   if (typeof query !== 'object') {
-    throw new Error('the EthFilter object must be instantiated with an EthQuery instance (e.g. `const filters = new EthFilter(new EthQuery(provider));`). See github.com/ethjs/ethjs-query for more details..');
+    throw new Error('the VapFilter object must be instantiated with an VapQuery instance (e.g. `const filters = new VapFilter(new VapQuery(provider));`). See github.com/vapjs/vapjs-query for more details..');
   }
 
   self.Filter = constructFilter('Filter', query);
@@ -6226,8 +6226,8 @@ function EthFilter(query) {
   self.PendingTransactionFilter = constructFilter('PendingTransactionFilter', query);
 }
 
-// export EthFilter
-module.exports = EthFilter;
+// export VapFilter
+module.exports = VapFilter;
 
 /***/ },
 /* 7 */
@@ -6280,9 +6280,9 @@ module.exports = g;
 "use strict";
 /* WEBPACK VAR INJECTION */(function(Buffer) {'use strict';
 
-var EthQuery = __webpack_require__(16);
-var EthFilter = __webpack_require__(6);
-var EthContract = __webpack_require__(13);
+var VapQuery = __webpack_require__(16);
+var VapFilter = __webpack_require__(6);
+var VapContract = __webpack_require__(13);
 var HttpProvider = __webpack_require__(15);
 var unit = __webpack_require__(17);
 var keccak256 = __webpack_require__(4).keccak_256;
@@ -6290,26 +6290,26 @@ var toBN = __webpack_require__(3);
 var BN = __webpack_require__(1);
 var utils = __webpack_require__(2);
 
-module.exports = Eth;
+module.exports = Vap;
 
 /**
- * Returns the ethjs Eth instance.
+ * Returns the vapjs Vap instance.
  *
- * @method Eth
+ * @method Vap
  * @param {Object} cprovider the web3 standard provider object
- * @param {Object} options the Eth options object
- * @returns {Object} eth Eth object instance
+ * @param {Object} options the Vap options object
+ * @returns {Object} vap Vap object instance
  * @throws if the new flag is not used in construction
  */
 
-function Eth(cprovider, options) {
-  if (!(this instanceof Eth)) {
-    throw new Error('[ethjs] the Eth object requires you construct it with the "new" flag (i.e. `const eth = new Eth(...);`).');
+function Vap(cprovider, options) {
+  if (!(this instanceof Vap)) {
+    throw new Error('[vapjs] the Vap object requires you construct it with the "new" flag (i.e. `const vap = new Vap(...);`).');
   }
   var self = this;
   self.options = options || {};
   self.setProvider = function (provider) {
-    var query = new EthQuery(provider, self.options.query);
+    var query = new VapQuery(provider, self.options.query);
     self.currentProvider = provider;
     Object.keys(Object.getPrototypeOf(query)).forEach(function (methodName) {
       self[methodName] = function () {
@@ -6320,29 +6320,29 @@ function Eth(cprovider, options) {
         return query[methodName].apply(query, args);
       };
     });
-    self.filter = new EthFilter(query, self.options.query);
-    self.contract = new EthContract(query, self.options.query);
+    self.filter = new VapFilter(query, self.options.query);
+    self.contract = new VapContract(query, self.options.query);
   };
   self.setProvider(cprovider);
 }
 
-Eth.BN = BN;
-Eth.isAddress = function (val) {
+Vap.BN = BN;
+Vap.isAddress = function (val) {
   return utils.isHexString(val, 20);
 };
-Eth.keccak256 = function (val) {
+Vap.keccak256 = function (val) {
   return '0x' + keccak256(val);
 };
-Eth.Buffer = Buffer;
-Eth.isHexString = utils.isHexString;
-Eth.fromWei = unit.fromWei;
-Eth.toWei = unit.toWei;
-Eth.toBN = toBN;
-Eth.fromAscii = utils.fromAscii;
-Eth.toAscii = utils.toAscii;
-Eth.fromUtf8 = utils.fromUtf8;
-Eth.toUtf8 = utils.toUtf8;
-Eth.HttpProvider = HttpProvider;
+Vap.Buffer = Buffer;
+Vap.isHexString = utils.isHexString;
+Vap.fromWei = unit.fromWei;
+Vap.toWei = unit.toWei;
+Vap.toBN = toBN;
+Vap.fromAscii = utils.fromAscii;
+Vap.toAscii = utils.toAscii;
+Vap.fromUtf8 = utils.fromUtf8;
+Vap.toUtf8 = utils.toUtf8;
+Vap.HttpProvider = HttpProvider;
 /* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(0).Buffer))
 
 /***/ },
@@ -6490,7 +6490,7 @@ function Result() {}
 
 function encodeParams(types, values) {
   if (types.length !== values.length) {
-    throw new Error('[ethjs-abi] while encoding params, types/values mismatch, types length ' + types.length + ' should be ' + values.length);
+    throw new Error('[vapjs-abi] while encoding params, types/values mismatch, types length ' + types.length + ' should be ' + values.length);
   }
 
   var parts = [];
@@ -6617,7 +6617,7 @@ var BN = __webpack_require__(1);
 var numberToBN = __webpack_require__(3);
 var keccak256 = __webpack_require__(4).keccak_256;
 
-// from ethereumjs-util
+// from vaporyjs-util
 function stripZeros(aInput) {
   var a = aInput; // eslint-disable-line
   var first = a[0]; // eslint-disable-line
@@ -6651,8 +6651,8 @@ function hexOrBuffer(valueInput, name) {
   var value = valueInput; // eslint-disable-line
   if (!Buffer.isBuffer(value)) {
     if (!isHexString(value)) {
-      var error = new Error(name ? '[ethjs-abi] invalid ' + name : '[ethjs-abi] invalid hex or buffer, must be a prefixed alphanumeric even length hex string');
-      error.reason = '[ethjs-abi] invalid hex string, hex must be prefixed and alphanumeric (e.g. 0x023..)';
+      var error = new Error(name ? '[vapjs-abi] invalid ' + name : '[vapjs-abi] invalid hex or buffer, must be a prefixed alphanumeric even length hex string');
+      error.reason = '[vapjs-abi] invalid hex string, hex must be prefixed and alphanumeric (e.g. 0x023..)';
       error.value = value;
       throw error;
     }
@@ -6683,7 +6683,7 @@ function getKeys(params, key, allowEmpty) {
   var result = []; // eslint-disable-line
 
   if (!Array.isArray(params)) {
-    throw new Error('[ethjs-abi] while getting keys, invalid params value ' + JSON.stringify(params));
+    throw new Error('[vapjs-abi] while getting keys, invalid params value ' + JSON.stringify(params));
   }
 
   for (var i = 0; i < params.length; i++) {
@@ -6692,7 +6692,7 @@ function getKeys(params, key, allowEmpty) {
     if (allowEmpty && !value) {
       value = '';
     } else if (typeof value !== 'string') {
-      throw new Error('[ethjs-abi] while getKeys found invalid ABI data structure, type value not string');
+      throw new Error('[vapjs-abi] while getKeys found invalid ABI data structure, type value not string');
     }
     result.push(value);
   }
@@ -6767,7 +6767,7 @@ function coderFixedBytes(length) {
     },
     decode: function decodeFixedBytes(data, offset) {
       if (data.length < offset + 32) {
-        throw new Error('[ethjs-abi] while decoding fixed bytes, invalid bytes data length: ' + length);
+        throw new Error('[vapjs-abi] while decoding fixed bytes, invalid bytes data length: ' + length);
       }
 
       return {
@@ -6783,7 +6783,7 @@ var coderAddress = {
     var value = valueInput; // eslint-disable-line
     var result = new Buffer(32); // eslint-disable-line
     if (!isHexString(value, 20)) {
-      throw new Error('[ethjs-abi] while encoding address, invalid address value, not alphanumeric 20 byte hex string');
+      throw new Error('[vapjs-abi] while encoding address, invalid address value, not alphanumeric 20 byte hex string');
     }
     value = hexOrBuffer(value);
     result.fill(0);
@@ -6792,7 +6792,7 @@ var coderAddress = {
   },
   decode: function decodeAddress(data, offset) {
     if (data.length < offset + 32) {
-      throw new Error('[ethjs-abi] while decoding address data, invalid address data, invalid byte length ' + data.length);
+      throw new Error('[vapjs-abi] while decoding address data, invalid address data, invalid byte length ' + data.length);
     }
     return {
       consumed: 32,
@@ -6811,13 +6811,13 @@ function encodeDynamicBytesHelper(value) {
 
 function decodeDynamicBytesHelper(data, offset) {
   if (data.length < offset + 32) {
-    throw new Error('[ethjs-abi] while decoding dynamic bytes data, invalid bytes length: ' + data.length + ' should be less than ' + (offset + 32));
+    throw new Error('[vapjs-abi] while decoding dynamic bytes data, invalid bytes length: ' + data.length + ' should be less than ' + (offset + 32));
   }
 
   var length = uint256Coder.decode(data, offset).value; // eslint-disable-line
   length = length.toNumber();
   if (data.length < offset + 32 + length) {
-    throw new Error('[ethjs-abi] while decoding dynamic bytes data, invalid bytes length: ' + data.length + ' should be less than ' + (offset + 32 + length));
+    throw new Error('[vapjs-abi] while decoding dynamic bytes data, invalid bytes length: ' + data.length + ' should be less than ' + (offset + 32 + length));
   }
 
   return {
@@ -6857,7 +6857,7 @@ function coderArray(coder, lengthInput) {
       var length = lengthInput; // eslint-disable-line
 
       if (!Array.isArray(value)) {
-        throw new Error('[ethjs-abi] while encoding array, invalid array data, not type Object (Array)');
+        throw new Error('[vapjs-abi] while encoding array, invalid array data, not type Object (Array)');
       }
 
       if (length === -1) {
@@ -6866,7 +6866,7 @@ function coderArray(coder, lengthInput) {
       }
 
       if (length !== value.length) {
-        throw new Error('[ethjs-abi] while encoding array, size mismatch array length ' + length + ' does not equal ' + value.length);
+        throw new Error('[vapjs-abi] while encoding array, size mismatch array length ' + length + ' does not equal ' + value.length);
       }
 
       value.forEach(function (resultValue) {
@@ -6917,7 +6917,7 @@ var paramTypePart = new RegExp(/^((u?int|bytes)([0-9]*)|(address|bool|string)|(\
 function getParamCoder(typeInput) {
   var type = typeInput; // eslint-disable-line
   var coder = null; // eslint-disable-line
-  var invalidTypeErrorMessage = '[ethjs-abi] while getting param coder (getParamCoder) type value ' + JSON.stringify(type) + ' is either invalid or unsupported by ethjs-abi.';
+  var invalidTypeErrorMessage = '[vapjs-abi] while getting param coder (getParamCoder) type value ' + JSON.stringify(type) + ' is either invalid or unsupported by vapjs-abi.';
 
   while (type) {
     var part = type.match(paramTypePart); // eslint-disable-line
@@ -6934,7 +6934,7 @@ function getParamCoder(typeInput) {
         }
         var intSize = parseInt(part[3] || 256); // eslint-disable-line
         if (intSize === 0 || intSize > 256 || intSize % 8 !== 0) {
-          throw new Error('[ethjs-abi] while getting param coder for type ' + type + ', invalid ' + prefix + '<N> width: ' + type);
+          throw new Error('[vapjs-abi] while getting param coder for type ' + type + ', invalid ' + prefix + '<N> width: ' + type);
         }
 
         coder = coderNumber(intSize / 8, prefix === 'int');
@@ -6961,7 +6961,7 @@ function getParamCoder(typeInput) {
         if (part[3]) {
           var size = parseInt(part[3]); // eslint-disable-line
           if (size === 0 || size > 32) {
-            throw new Error('[ethjs-abi] while getting param coder for prefix bytes, invalid type ' + type + ', size ' + size + ' should be 0 or greater than 32');
+            throw new Error('[vapjs-abi] while getting param coder for prefix bytes, invalid type ' + type + ', size ' + size + ' should be 0 or greater than 32');
           }
           coder = coderFixedBytes(size);
         } else {
@@ -7033,7 +7033,7 @@ module.exports = {
 
 var abi = __webpack_require__(11); // eslint-disable-line
 var keccak256 = __webpack_require__(4).keccak_256; // eslint-disable-line
-var EthFilter = __webpack_require__(6); // eslint-disable-line
+var VapFilter = __webpack_require__(6); // eslint-disable-line
 var getKeys = __webpack_require__(2).getKeys; // eslint-disable-line
 var arrayContainsArray = __webpack_require__(2).arrayContainsArray;
 
@@ -7071,7 +7071,7 @@ function contractFactory(query) {
         self.address = address || '0x';
         self.bytecode = contractBytecode || '0x';
         self.defaultTxObject = contractDefaultTxObject || {};
-        self.filters = new EthFilter(query);
+        self.filters = new VapFilter(query);
 
         getCallableMethodsFromABI(contractABI).forEach(function (methodObject) {
           self[methodObject.name] = function contractMethod() {
@@ -7094,7 +7094,7 @@ function contractFactory(query) {
                       resolve(decodedMethodResult);
                       methodCallback(null, decodedMethodResult);
                     } catch (decodeFormattingError) {
-                      var decodingError = new Error('[ethjs-contract] while formatting incoming raw call data ' + JSON.stringify(callbackResult) + ' ' + decodeFormattingError);
+                      var decodingError = new Error('[vapjs-contract] while formatting incoming raw call data ' + JSON.stringify(callbackResult) + ' ' + decodeFormattingError);
 
                       reject(decodingError);
                       methodCallback(decodingError, null);
@@ -7169,11 +7169,11 @@ function contractFactory(query) {
   };
 }
 
-function EthContract(query) {
+function VapContract(query) {
   return contractFactory(query);
 }
 
-module.exports = EthContract;
+module.exports = VapContract;
 
 /***/ },
 /* 14 */
@@ -7208,7 +7208,7 @@ function formatQuantity(value, encode) {
   var numberValue = numberToBN(value);
 
   if (numberToBN(value).isNeg()) {
-    throw new Error('[ethjs-format] while formatting quantity \'' + numberValue.toString(10) + '\', invalid negative number. Number must be positive or zero.');
+    throw new Error('[vapjs-format] while formatting quantity \'' + numberValue.toString(10) + '\', invalid negative number. Number must be positive or zero.');
   }
 
   return encode ? '0x' + padToEven(numberValue.toString(16)) : numberValue;
@@ -7257,7 +7257,7 @@ function formatData(value, byteLength) {
   // throw if bytelength is not correct
   if (typeof byteLength === 'number' && value !== null && output !== '0x' // support empty values
   && (!/^[0-9A-Fa-f]+$/.test(stripHexPrefix(output)) || outputByteLength !== 2 + byteLength * 2)) {
-    throw new Error('[ethjs-format] hex string \'' + output + '\' must be an alphanumeric ' + (2 + byteLength * 2) + ' utf8 byte hex (chars: a-fA-F) string, is ' + outputByteLength + ' bytes');
+    throw new Error('[vapjs-format] hex string \'' + output + '\' must be an alphanumeric ' + (2 + byteLength * 2) + ' utf8 byte hex (chars: a-fA-F) string, is ' + outputByteLength + ' bytes');
   }
 
   return output;
@@ -7267,7 +7267,7 @@ function formatData(value, byteLength) {
  * Format object, even with random RPC caviets
  *
  * @method formatObject
- * @param {String|Array} formatter the unit to convert to, default ether
+ * @param {String|Array} formatter the unit to convert to, default vapor
  * @param {Object} value the object value
  * @param {Boolean} encode encode to hex or decode to BigNumber
  * @returns {Object} output object
@@ -7279,8 +7279,8 @@ function formatObject(formatter, value, encode) {
 
   // if the object is a string flag, then retreive the object
   if (typeof formatter === 'string') {
-    if (formatter === 'Boolean|EthSyncing') {
-      formatObject = Object.assign({}, schema.objects.EthSyncing);
+    if (formatter === 'Boolean|VapSyncing') {
+      formatObject = Object.assign({}, schema.objects.VapSyncing);
     } else if (formatter === 'DATA|Transaction') {
       formatObject = Object.assign({}, schema.objects.Transaction);
     } else {
@@ -7291,7 +7291,7 @@ function formatObject(formatter, value, encode) {
   // check if all required data keys are fulfilled
   if (!arrayContainsArray(Object.keys(value), formatObject.__required)) {
     // eslint-disable-line
-    throw new Error('[ethjs-format] object ' + JSON.stringify(value) + ' must contain properties: ' + formatObject.__required.join(', ')); // eslint-disable-line
+    throw new Error('[vapjs-format] object ' + JSON.stringify(value) + ' must contain properties: ' + formatObject.__required.join(', ')); // eslint-disable-line
   }
 
   // assume formatObject is an object, go through keys and format each
@@ -7308,7 +7308,7 @@ function formatObject(formatter, value, encode) {
  * Format array
  *
  * @method formatArray
- * @param {String|Array} formatter the unit to convert to, default ether
+ * @param {String|Array} formatter the unit to convert to, default vapor
  * @param {Object} value the value in question
  * @param {Boolean} encode encode to hex or decode to BigNumber
  * @param {Number} lengthRequirement the required minimum array length
@@ -7449,7 +7449,7 @@ var XHR2 = __webpack_require__(23);
  * InvalidResponseError helper for invalid errors.
  */
 function invalidResponseError(result, host) {
-  var message = !!result && !!result.error && !!result.error.message ? '[ethjs-provider-http] ' + result.error.message : '[ethjs-provider-http] Invalid JSON RPC response from host provider ' + host + ': ' + JSON.stringify(result, null, 2);
+  var message = !!result && !!result.error && !!result.error.message ? '[vapjs-provider-http] ' + result.error.message : '[vapjs-provider-http] Invalid JSON RPC response from host provider ' + host + ': ' + JSON.stringify(result, null, 2);
   return new Error(message);
 }
 
@@ -7458,10 +7458,10 @@ function invalidResponseError(result, host) {
  */
 function HttpProvider(host, timeout) {
   if (!(this instanceof HttpProvider)) {
-    throw new Error('[ethjs-provider-http] the HttpProvider instance requires the "new" flag in order to function normally (e.g. `const eth = new Eth(new HttpProvider());`).');
+    throw new Error('[vapjs-provider-http] the HttpProvider instance requires the "new" flag in order to function normally (e.g. `const eth = new Vap(new HttpProvider());`).');
   }
   if (typeof host !== 'string') {
-    throw new Error('[ethjs-provider-http] the HttpProvider instance requires that the host be specified (e.g. `new HttpProvider("http://localhost:8545")` or via service like infura `new HttpProvider("http://ropsten.infura.io")`)');
+    throw new Error('[vapjs-provider-http] the HttpProvider instance requires that the host be specified (e.g. `new HttpProvider("http://localhost:8545")` or via service like infura `new HttpProvider("http://ropsten.infura.io")`)');
   }
 
   var self = this;
@@ -7501,13 +7501,13 @@ HttpProvider.prototype.sendAsync = function (payload, callback) {
   };
 
   request.ontimeout = function () {
-    callback('[ethjs-provider-http] CONNECTION TIMEOUT: http request timeout after ' + self.timeout + ' ms. (i.e. your connect has timed out for whatever reason, check your provider).', null);
+    callback('[vapjs-provider-http] CONNECTION TIMEOUT: http request timeout after ' + self.timeout + ' ms. (i.e. your connect has timed out for whatever reason, check your provider).', null);
   };
 
   try {
     request.send(JSON.stringify(payload));
   } catch (error) {
-    callback('[ethjs-provider-http] CONNECTION ERROR: Couldn\'t connect to node \'' + self.host + '\': ' + JSON.stringify(error, null, 2), null);
+    callback('[vapjs-provider-http] CONNECTION ERROR: Couldn\'t connect to node \'' + self.host + '\': ' + JSON.stringify(error, null, 2), null);
   }
 };
 
@@ -7522,17 +7522,17 @@ module.exports = HttpProvider;
 
 var format = __webpack_require__(14);
 
-module.exports = Eth;
+module.exports = Vap;
 
-function Eth(provider, options) {
+function Vap(provider, options) {
   var self = this;
   var optionsObject = options || {};
 
-  if (!(this instanceof Eth)) {
-    throw new Error('[ethjs-query] the Eth object requires the "new" flag in order to function normally (i.e. `const eth = new Eth(provider);`).');
+  if (!(this instanceof Vap)) {
+    throw new Error('[vapjs-query] the Vap object requires the "new" flag in order to function normally (i.e. `const eth = new Vap(provider);`).');
   }
   if (typeof provider !== 'object') {
-    throw new Error('[ethjs-query] the Eth object requires that the first input \'provider\' must be an object, got \'' + typeof provider + '\' (i.e. \'const eth = new Eth(provider);\')');
+    throw new Error('[vapjs-query] the Vap object requires that the first input \'provider\' must be an object, got \'' + typeof provider + '\' (i.e. \'const eth = new Vap(provider);\')');
   }
 
   self.options = Object.assign({
@@ -7545,23 +7545,23 @@ function Eth(provider, options) {
   self.currentProvider = provider;
 }
 
-Eth.prototype.log = function log(message) {
+Vap.prototype.log = function log(message) {
   var self = this;
-  if (self.options.debug) self.options.logger.log('[ethjs-query log] ' + message);
+  if (self.options.debug) self.options.logger.log('[vapjs-query log] ' + message);
 };
 
-Eth.prototype.sendAsync = function sendAsync(opts, cb) {
+Vap.prototype.sendAsync = function sendAsync(opts, cb) {
   var self = this;
   self.idCounter = self.idCounter % self.options.max;
   self.currentProvider.sendAsync(createPayload(opts, self.idCounter++), function (err, response) {
     var responseObject = response || {};
-    if (err || responseObject.error) return cb(new Error('[ethjs-query] ' + (responseObject.error && 'rpc' || '') + ' error with payload ' + JSON.stringify(opts, null, 0) + ' ' + JSON.stringify(err || response.error, null, 0)));
+    if (err || responseObject.error) return cb(new Error('[vapjs-query] ' + (responseObject.error && 'rpc' || '') + ' error with payload ' + JSON.stringify(opts, null, 0) + ' ' + JSON.stringify(err || response.error, null, 0)));
     return cb(null, response.result);
   });
 };
 
 Object.keys(format.schema.methods).forEach(function (rpcMethodName) {
-  Object.defineProperty(Eth.prototype, rpcMethodName.replace('eth_', ''), {
+  Object.defineProperty(Vap.prototype, rpcMethodName.replace('eth_', ''), {
     enumerable: true,
     value: generateFnFor(rpcMethodName, format.schema.methods[rpcMethodName])
   });
@@ -7594,7 +7594,7 @@ function generateFnFor(method, methodObject) {
             resolve(methodOutputs);
             protoCallback(null, methodOutputs);
           } catch (outputFormattingError) {
-            var outputError = new Error('[ethjs-query] while formatting outputs from RPC \'' + JSON.stringify(callbackResult, null, self.options.jsonSpace) + '\' for method \'' + protoMethod + '\' ' + outputFormattingError);
+            var outputError = new Error('[vapjs-query] while formatting outputs from RPC \'' + JSON.stringify(callbackResult, null, self.options.jsonSpace) + '\' for method \'' + protoMethod + '\' ' + outputFormattingError);
 
             reject(outputError);
             protoCallback(outputError, null);
@@ -7603,11 +7603,11 @@ function generateFnFor(method, methodObject) {
       };
 
       if (args.length < methodObject[2]) {
-        return cb(new Error('[ethjs-query] method \'' + protoMethod + '\' requires at least ' + methodObject[2] + ' input (format type ' + methodObject[0][0] + '), ' + args.length + ' provided. For more information visit: https://github.com/ethereum/wiki/wiki/JSON-RPC#' + method.toLowerCase()));
+        return cb(new Error('[vapjs-query] method \'' + protoMethod + '\' requires at least ' + methodObject[2] + ' input (format type ' + methodObject[0][0] + '), ' + args.length + ' provided. For more information visit: https://github.com/vaporyco/wiki/wiki/JSON-RPC#' + method.toLowerCase()));
       }
 
       if (args.length > methodObject[0].length) {
-        return cb(new Error('[ethjs-query] method \'' + protoMethod + '\' requires at most ' + methodObject[0].length + ' params, ' + args.length + ' provided \'' + JSON.stringify(args, null, self.options.jsonSpace) + '\'. For more information visit: https://github.com/ethereum/wiki/wiki/JSON-RPC#' + method.toLowerCase()));
+        return cb(new Error('[vapjs-query] method \'' + protoMethod + '\' requires at most ' + methodObject[0].length + ' params, ' + args.length + ' provided \'' + JSON.stringify(args, null, self.options.jsonSpace) + '\'. For more information visit: https://github.com/vaporyco/wiki/wiki/JSON-RPC#' + method.toLowerCase()));
       }
 
       if (methodObject[3] && args.length < methodObject[3]) {
@@ -7620,7 +7620,7 @@ function generateFnFor(method, methodObject) {
         inputs = format.formatInputs(method, args);
         self.log('method formatting success for \'' + protoMethod + '\' with formatted result: ' + JSON.stringify(inputs, null, self.options.jsonSpace));
       } catch (formattingError) {
-        return cb(new Error('[ethjs-query] while formatting inputs \'' + JSON.stringify(args, null, self.options.jsonSpace) + '\' for method \'' + protoMethod + '\' error: ' + formattingError));
+        return cb(new Error('[vapjs-query] while formatting inputs \'' + JSON.stringify(args, null, self.options.jsonSpace) + '\' for method \'' + protoMethod + '\' error: ' + formattingError));
       }
 
       return self.sendAsync({ method: method, params: inputs }, cb);
@@ -7649,50 +7649,50 @@ var numberToBN = __webpack_require__(3);
 var zero = new BN(0);
 var negative1 = new BN(-1);
 
-// complete ethereum unit map
+// complete vapory unit map
 var unitMap = {
-  'noether': '0', // eslint-disable-line
+  'novapor': '0', // eslint-disable-line
   'wei': '1', // eslint-disable-line
   'kwei': '1000', // eslint-disable-line
   'Kwei': '1000', // eslint-disable-line
   'babbage': '1000', // eslint-disable-line
-  'femtoether': '1000', // eslint-disable-line
+  'femtovapor': '1000', // eslint-disable-line
   'mwei': '1000000', // eslint-disable-line
   'Mwei': '1000000', // eslint-disable-line
   'lovelace': '1000000', // eslint-disable-line
-  'picoether': '1000000', // eslint-disable-line
+  'picovapor': '1000000', // eslint-disable-line
   'gwei': '1000000000', // eslint-disable-line
   'Gwei': '1000000000', // eslint-disable-line
   'shannon': '1000000000', // eslint-disable-line
-  'nanoether': '1000000000', // eslint-disable-line
+  'nanovapor': '1000000000', // eslint-disable-line
   'nano': '1000000000', // eslint-disable-line
   'szabo': '1000000000000', // eslint-disable-line
-  'microether': '1000000000000', // eslint-disable-line
+  'microvapor': '1000000000000', // eslint-disable-line
   'micro': '1000000000000', // eslint-disable-line
   'finney': '1000000000000000', // eslint-disable-line
-  'milliether': '1000000000000000', // eslint-disable-line
+  'millivapor': '1000000000000000', // eslint-disable-line
   'milli': '1000000000000000', // eslint-disable-line
-  'ether': '1000000000000000000', // eslint-disable-line
-  'kether': '1000000000000000000000', // eslint-disable-line
+  'vapor': '1000000000000000000', // eslint-disable-line
+  'kvapor': '1000000000000000000000', // eslint-disable-line
   'grand': '1000000000000000000000', // eslint-disable-line
-  'mether': '1000000000000000000000000', // eslint-disable-line
-  'gether': '1000000000000000000000000000', // eslint-disable-line
-  'tether': '1000000000000000000000000000000' };
+  'mvapor': '1000000000000000000000000', // eslint-disable-line
+  'gvapor': '1000000000000000000000000000', // eslint-disable-line
+  'tvapor': '1000000000000000000000000000000' };
 
 /**
  * Returns value of unit in Wei
  *
  * @method getValueOfUnit
- * @param {String} unit the unit to convert to, default ether
+ * @param {String} unit the unit to convert to, default vapor
  * @returns {BigNumber} value of the unit (in Wei)
  * @throws error if the unit is not correct:w
  */
 function getValueOfUnit(unitInput) {
-  var unit = unitInput ? unitInput.toLowerCase() : 'ether';
+  var unit = unitInput ? unitInput.toLowerCase() : 'vapor';
   var unitValue = unitMap[unit]; // eslint-disable-line
 
   if (typeof unitValue !== 'string') {
-    throw new Error('[ethjs-unit] the unit provided ' + unitInput + ' doesn\'t exists, please use the one of the following units ' + JSON.stringify(unitMap, null, 2));
+    throw new Error('[vapjs-unit] the unit provided ' + unitInput + ' doesn\'t exists, please use the one of the following units ' + JSON.stringify(unitMap, null, 2));
   }
 
   return new BN(unitValue, 10);
@@ -7753,25 +7753,25 @@ function fromWei(weiInput, unit, optionsInput) {
   return value;
 }
 
-function toWei(etherInput, unit) {
-  var ether = numberToString(etherInput); // eslint-disable-line
+function toWei(vaporInput, unit) {
+  var vapor = numberToString(vaporInput); // eslint-disable-line
   var base = getValueOfUnit(unit);
   var baseLength = unitMap[unit].length - 1 || 1;
 
   // Is it negative?
-  var negative = ether.substring(0, 1) === '-'; // eslint-disable-line
+  var negative = vapor.substring(0, 1) === '-'; // eslint-disable-line
   if (negative) {
-    ether = ether.substring(1);
+    vapor = vapor.substring(1);
   }
 
-  if (ether === '.') {
-    throw new Error('[ethjs-unit] while converting number ' + etherInput + ' to wei, invalid value');
+  if (vapor === '.') {
+    throw new Error('[vapjs-unit] while converting number ' + vaporInput + ' to wei, invalid value');
   }
 
   // Split it into a whole and fractional part
-  var comps = ether.split('.'); // eslint-disable-line
+  var comps = vapor.split('.'); // eslint-disable-line
   if (comps.length > 2) {
-    throw new Error('[ethjs-unit] while converting number ' + etherInput + ' to wei,  too many decimal points');
+    throw new Error('[vapjs-unit] while converting number ' + vaporInput + ' to wei,  too many decimal points');
   }
 
   var whole = comps[0],
@@ -7784,7 +7784,7 @@ function toWei(etherInput, unit) {
     fraction = '0';
   }
   if (fraction.length > baseLength) {
-    throw new Error('[ethjs-unit] while converting number ' + etherInput + ' to wei, too many decimal places');
+    throw new Error('[vapjs-unit] while converting number ' + vaporInput + ' to wei, too many decimal places');
   }
 
   while (fraction.length < baseLength) {
@@ -7946,7 +7946,7 @@ module.exports = {
 		],
 		"eth_syncing": [
 			[],
-			"Boolean|EthSyncing"
+			"Boolean|VapSyncing"
 		],
 		"eth_coinbase": [
 			[],
@@ -8344,7 +8344,7 @@ module.exports = {
 		"pending"
 	],
 	"objects": {
-		"EthSyncing": {
+		"VapSyncing": {
 			"__required": [],
 			"startingBlock": "Q",
 			"currentBlock": "Q",
@@ -8747,4 +8747,4 @@ module.exports = __webpack_require__(9);
 /******/ ])
 });
 ;
-//# sourceMappingURL=ethjs.js.map
+//# sourceMappingURL=vapjs.js.map
